@@ -31,12 +31,11 @@ def vis_func(func, X_list_2d, x0a=-3, x0b=3, x1a=-2, x1b=2, points=500, levels=1
     plt.axvline(x=0, color="k")
     plt.contourf(x0, x1, Ys, levels=levelsY)
 
-    # plt.show() does not put here for plot expanding the code if you need 
+    # plt.show() does not put here for expanding the plot code if you need 
 
 
 def is_pdm(matrix):
     """a function which can tell if a matrix is positive definite"""
-
     if matrix.shape[0] != matrix.shape[1]:
         return "This matrix is not a quare matrix"
     
@@ -50,7 +49,6 @@ def is_pdm(matrix):
 
 def partials(X_list, func):
     """calculate a func's all first-order partial derivatives"""
-
     pars = []
     for x in X_list:
         pars.append(sp.diff(func, x))
@@ -126,3 +124,15 @@ def is_cvx(func, X_list):
         return "This func is not quadratic form!"
     
     return is_pdm(hess_exp)
+
+
+def is_opt_unc(func, X_list, X_value, tol=10e-5):
+    """optimal condition check for unconstrained problems
+    check if X-value is a local minimum point
+    for convex functions, local minimum point is their globle minmum point
+    tol is the tolerance of this problem"""
+    gdt_v = np.array(gdt(func, X_list, X_value), dtype=float)
+    hess_v = hess(func, X_list, X_value)
+    if np.linalg.norm(gdt_v) < tol and is_pdm(hess_v):
+        return True
+    return False
