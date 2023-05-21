@@ -8,7 +8,7 @@ def vec_X(X_list):
     return sp.Matrix([X_list]).reshape(len(X_list), 1)
 
 
-def vis_func(func, X_list_2d, x0a=-3, x0b=3, x1a=-2, x1b=2, points=500, levels=10):
+def vis_func_2d(func, X_list_2d, x0a=-3, x0b=3, x1a=-2, x1b=2, points=500, levels=10):
     """implement a function to do the vis"""
     func_cal = sp.lambdify(X_list_2d, func)
     
